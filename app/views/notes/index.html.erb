@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h3> !! List of Article !! </h3>
+      <table class="table table-striped">
+        <tr>
+          <th> User Id </th>
+          <th> Title </th>
+          <th> Created By </th>
+          <th> Edit </th>
+          <th> Delete </th>
+          <th> Details </th>
+          <th> Likes </th>
+        </tr>
+        <% @notes.each do |note| %>
+        <tr>
+          <td><strong><%= note.user_id %> </strong></td>
+          <td><strong><%= note.title %></strong></td>
+          <td><%= "#{note.user.first_name}" + " #{note.user.last_name}" %></td>   
+          <% if current_user === note.user %>
+            <td><%= link_to "Edit", edit_note_path(note) %></td>
+            <td><%= link_to "Delete", note_path(note),
+                        method: :delete,
+                        data: { confirm: "Are you sure?" } %></td>
+          <% else %>
+            <td> - </td> 
+            <td> - </td>        
+          <% end %>
+          <td><%= link_to "Show", note_path(note) %></td>
+          <td><%= note.likes.count %> <%= (note.likes.count) == 1 ? 'Like' : 'Likes'%></td>
+        </tr>            
+        <% end %>        
+      </table>
+  </body>
+</html>

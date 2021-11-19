@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+  <body>
+    <table class="table table-striped">
+      <tr>
+        <th> User Id </th>
+        <th> Title </th>
+        <th> Description </th>
+        <th> Created By </th>
+        <th colspan="2"> Image</th>
+        <th> </th>
+        <th>  </th>
+        <th>  </th>
+      </tr>
+      <tr>
+        <td><strong><%= @note.user_id %></strong></td>
+        <td><strong><%= @note.title %></strong></td>
+        <td><%= @note.description %></td>
+        <td><%= "#{@note.user.first_name}" + " #{@note.user.last_name}" %></td>
+        <% if current_user === @note.user %>
+          <td><%= link_to "Edit", edit_note_path(@note) %></td>
+          <td><%= link_to "Delete", note_path(@note),
+                          method: :delete,
+                          data: { confirm: "Are you sure?" } %></td>
+        <% end %>
+        <% if @note.image.attached? %>
+          <td> <%= image_tag @note.image %></td>
+        <% end %>  
+       
+        </tr> 
+        <tr>  
+        <div id="note-<%= @note.id %>">
+          <%= render partial: 'likes/like_button', locals: {note: @note} %>
+          <%= @note.likes.count %> <%= (@note.likes.count) == 1 ? 'Like' : 'Likes'%>
+        </div>
+      </tr>
+    </table>  
+  
+    <th><strong>Comments</strong></th>
+    <div id="comment_list">
+      <%= render partial: 'comments/user_comment', locals: {note: @note} %>
+      <% @note.comments.each do |comment| %>
+        <p>
+        <th><%= comment.name %></th>
+        <br>
+        <%= comment.body %>
+        <% if comment.user_id == current_user.id %>
+          <%= link_to "Edit", edit_note_comment_path(@note, comment) %>
+          <%= link_to "Delete",  note_comment_path(@note, comment),
+                              method: :delete,
+                              data: { confirm: "Are you sure?" } %>                            
+        <% end %>                      
+        </p>
+      <% end %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+<% if @note.liked?(current_user) %>
+	<%= link_to note_like_path(@note.id,@note.likes.find_by(user_id: current_user.id)),class:"like_button",method: :delete, remote: true do %>
+		<i class="fa fa-thumbs-up" id="like_button" ></i>
+	<% end %>
+<% else %>
+	<%= link_to note_likes_path(@note.id),class:"like_button",method: :post, remote: true do %>
+		<i class="fa fa-thumbs-o-up" id="like_button"></i>
+	<% end %>
+<% end %>

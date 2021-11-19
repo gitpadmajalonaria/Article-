@@ -1,0 +1,1 @@
+$("#note-<%= @note.id %>").html("<td><%= j render :partial => 'like_button', locals: {note: @note} %></td><td> <%= @note.likes.count %> <%= (@note.likes.count) == 1 ? 'Like' : 'Likes'%></td>")

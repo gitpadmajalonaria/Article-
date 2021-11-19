@@ -1,0 +1,13 @@
+<th><strong>Add a comment:</strong></th>
+<%= form_with model: [ @note, @note.comments.build ] do |form| %>
+  <p>
+  <%= form.label :name %>
+  <%= form.text_field :name %><br> 
+  <%= form.label :body %>
+  <%= form.text_area :body %><br>
+  </p>
+  <p>
+  <%= form.submit %>
+  </p>
+<% end %>  
+  

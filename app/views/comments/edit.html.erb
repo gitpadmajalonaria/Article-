@@ -1,0 +1,11 @@
+<th><strong>Edit Comment</strong></th>
+
+<%= form_with model: @comment, url: note_comment_path(@comment), method: :patch, local: true do |form| %>
+  <p>
+  	<%= form.label :body %><br>
+  	<%= form.text_area :body %>
+  </p>
+  <p>
+ 	  <%= form.submit "Update" %>
+  </p>
+<% end %>  
